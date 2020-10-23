@@ -22,6 +22,9 @@ def rules():
 def cover():
     return render_template('cover.html')
 
+@app.route('/test')
+def base():
+	return render_template('testBase.html')
 
 
 if __name__ == "__main__": 
