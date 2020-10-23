@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: husker-app-2020
+  namespace: vcs-bet
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: husker-app-2020
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: husker-app-2020
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - husker-app-2020
+                topologyKey: kubernetes.io/hostname
+      containers:
+        - name: husker-app-2020
+          image: johntcronin/huskerapp2020:latest
+          resources:
+            limits:
+              cpu: "0.2"
+              memory: "256Mi"
+            requests:
+              cpu: "0.1"
+              memory: "128Mi"
+          env:
+            - name: RUNTIME_ENV
+              value: ITG
+            - name: http_proxy
+              value: ""
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: husker-app-2020
+  namespace: vcs-bet
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: husker-app-2020
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: husker-app-2020
+  namespace: vcs-bet
+  annotations:
+    kubernetes.io/ingress.class: ingress-controller-onprem
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  rules:
+    - host: husker-app-2020.mutualofomaha.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: husker-app-2020
+              servicePort: 80

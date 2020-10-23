@@ -1,0 +1,18 @@
+instructions
+
+
+
+docker build -t huskerapp2020:latest .
+
+docker run --name huskerapp2020 -p 5001:5001 huskerapp2020
+
+docker container rm <name of container.
+
+docker login
+login credentials saved in /home/username/.docker/config.json
+
+docker image ls | grep huskerapp
+
+docker tag <the image tag> johntcronin/huskerapp2020:latest
+
+docker push johntcronin/huskerapp2020:latest
