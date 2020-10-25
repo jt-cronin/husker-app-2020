@@ -4,7 +4,7 @@ metadata:
   name: husker-app-2020
   namespace: vcs-bet
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: husker-app-2020
@@ -33,6 +33,7 @@ spec:
       containers:
         - name: husker-app-2020
           image: johntcronin/huskerapp2020:latest
+          imagePullPolicy: Always
           resources:
             limits:
               cpu: "0.2"

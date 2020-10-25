@@ -4,7 +4,7 @@ instructions
 
 docker build -t huskerapp2020:latest .
 
-docker run --name huskerapp2020 -p 5001:5001 huskerapp2020
+docker run --name huskerapp2020 -p 8080:8080 huskerapp2020
 
 docker container rm <name of container.
 
