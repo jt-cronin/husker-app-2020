@@ -2,7 +2,7 @@ instructions
 
 
 
-docker build -t huskerapp2020:latest .
+docker build -t huskerapp2020:<version> .
 
 docker run --name huskerapp2020 -p 8080:8080 huskerapp2020
 
@@ -13,6 +13,6 @@ login credentials saved in /home/username/.docker/config.json
 
 docker image ls | grep huskerapp
 
-docker tag <the image tag> johntcronin/huskerapp2020:latest
+docker tag <the image tag> johntcronin/huskerapp2020:<version>
 
-docker push johntcronin/huskerapp2020:latest
+docker push johntcronin/huskerapp2020:<version>

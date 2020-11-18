@@ -32,7 +32,7 @@ spec:
                 topologyKey: kubernetes.io/hostname
       containers:
         - name: husker-app-2020
-          image: johntcronin/huskerapp2020:1.2
+          image: johntcronin/huskerapp2020:1.3
           imagePullPolicy: Always
           resources:
             limits:
