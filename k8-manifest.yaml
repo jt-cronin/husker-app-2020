@@ -32,7 +32,7 @@ spec:
                 topologyKey: kubernetes.io/hostname
       containers:
         - name: husker-app-2020
-          image: johntcronin/huskerapp2020:1.3
+          image: johntcronin/huskerapp2020:1.6
           imagePullPolicy: Always
           resources:
             limits:
@@ -59,20 +59,20 @@ spec:
   selector:
     app: husker-app-2020
 ---
-apiVersion: extensions/v1beta1
-kind: Ingress
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
 metadata:
   name: husker-app-2020
   namespace: vcs-bet
-  annotations:
-    kubernetes.io/ingress.class: ingress-controller-onprem
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
-  rules:
-    - host: husker-app-2020.mutualofomaha.com
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: husker-app-2020
-              servicePort: 80
+  virtualhost:
+    fqdn: husker-app-2020.mutualofomaha.com
+    tls:
+      secretName: tlswcmoo
+  routes:
+    - conditions:
+      - prefix: /
+      services:
+        - name: husker-app-2020
+          port: 80
+          weight: 100
