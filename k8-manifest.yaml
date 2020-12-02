@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: husker-app-2020
-  namespace: vcs-bet
+  namespace: vcs-lab
 spec:
   replicas: 2
   selector:
@@ -51,7 +51,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: husker-app-2020
-  namespace: vcs-bet
+  namespace: vcs-lab
 spec:
   ports:
     - port: 80
@@ -63,7 +63,7 @@ apiVersion: projectcontour.io/v1
 kind: HTTPProxy
 metadata:
   name: husker-app-2020
-  namespace: vcs-bet
+  namespace: vcs-lab
 spec:
   virtualhost:
     fqdn: husker-app-2020.mutualofomaha.com
